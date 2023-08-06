@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import { HomeProps } from "@/types";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
+import ShowMore from "@/components/ShowMore";
 
 export default async function Home({ searchParams }: HomeProps) {
     const allCars = await fetchCars({
@@ -23,9 +24,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
             <div className="mt-12 padding-x padding-y max-width" id="discover">
                 <div className="home__text-container">
-                    <h1 className="text-4xl font-extrabold">
-                        Lutfullah Car Cataloge
-                    </h1>
+                    <h1 className="text-4xl font-extrabold">Lutfullah Car</h1>
                     <p>Explore the cars you like at Lutfullah CarHub</p>
                 </div>
 
@@ -48,6 +47,10 @@ export default async function Home({ searchParams }: HomeProps) {
                                 <CarCard car={car} />
                             ))}
                         </div>
+                        <ShowMore
+                            pageNumber={(searchParams.limit || 10) / 10}
+                            isNext={(searchParams.limit || 10) > allCars.length}
+                        />
                     </section>
                 ) : (
                     <div className="home__error-container">
